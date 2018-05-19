@@ -5,9 +5,9 @@
     "body-parser": "1.18.0",
     "express": "4.14.1",
     "mysql": "2.14.1",
-    "request": "^2.83.0",
+    "request": "^2.86.0",
     "serve-favicon": "2.4.1",
-    "twilio": "^3.7.0"
+    "twilio": "^3.17.0"
   },
   "main": "server.js",
   "author": "",
