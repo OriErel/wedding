@@ -1,0 +1,16 @@
+{
+  "name": "wedding-repo",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "1.18.0",
+    "express": "4.14.1",
+    "mysql": "2.14.1",
+    "request": "^2.83.0",
+    "serve-favicon": "2.4.1",
+    "twilio": "^3.7.0"
+  },
+  "main": "server.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

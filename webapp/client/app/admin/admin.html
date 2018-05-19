@@ -1,0 +1,63 @@
+<div class="admin-container">
+    <div ng-if="validated === false">
+        <input type="password" ng-model="$parent.password" class="validation-container" ng-keydown="submitKeyDown($event)">
+        <md-button class="md-raised" ng-click="getToken()">
+            Submit
+        </md-button>
+    </div>
+
+    <div ng-if="validated">
+        <div class="welcome-container">
+            Welcome!
+        </div>
+
+        <div class="guests-container">
+            <div class="guest-container">
+                <div>
+                    First name
+                </div>
+                <div>
+                    Last name
+                </div>
+                <div>
+                    Comment
+                </div>
+                <div>
+                    Num of attendees
+                </div>
+                <div>
+                    Extra data
+                </div>
+                <div>
+                    Group
+                </div>
+                <div>
+                    Cellphone
+                </div>
+            </div>
+            <div class="guest-container" ng-repeat="guest in guests">
+                <div>
+                    {{guest['first_name']}}
+                </div>
+                <div>
+                    {{guest['last_name']}}
+                </div>
+                <div>
+                    {{guest['comment']}}
+                </div>
+                <div>
+                    {{guest['num_of_attendees']}}
+                </div>
+                <div>
+                    {{guest['extra_data']}}
+                </div>
+                <div>
+                    {{guest['group']}}
+                </div>
+                <div>
+                    {{guest['cellphone']}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
