@@ -9,7 +9,7 @@ export const create = async () => {
   });
 
   const db = connect({
-    host: 'db',
+    host: process.env.DB_HOST,
     port: 5432,
     database: process.env.DB_NAME,
     username: process.env.DB_USERNAME,

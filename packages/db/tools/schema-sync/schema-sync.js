@@ -4,7 +4,7 @@ import { createConnection } from '../../src/connection';
 import { createModels } from '../../src/models';
 
 createConnection({
-  host: 'db',
+  host: process.env.DB_HOST,
   port: 5432,
   database: process.env.DB_NAME,
   username: process.env.DB_USERNAME,
