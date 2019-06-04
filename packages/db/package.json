@@ -1,0 +1,27 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist --copy-files",
+    "schema-sync": "node tools/schema-sync"
+  },
+  "author": "Ori Erel",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.4.0",
+    "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/preset-env": "7.4.2"
+  },
+  "dependencies": {
+    "await-to-js": "2.1.1",
+    "compose-function": "3.0.3",
+    "lodash.merge": "4.6.1",
+    "pg": "7.9.0",
+    "pg-hstore": "2.3.2",
+    "sequelize": "5.8.7"
+  }
+}

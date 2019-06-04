@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:11.2-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  app:
+    build:
+      context: .
+      dockerfile: app/deployment/Dockerfile
+    image: wedding/app:${GIT_SHA-local}
+    ports:
+      - 3000:3000
+    networks:
+      - backend
+
+  api:
+    build:
+      context: .
+      dockerfile: api/deployment/Dockerfile
+    image: wedding/api:${GIT_SHA-local}
+    ports:
+      - 3500:3500
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  db-data:

@@ -1,16 +1,38 @@
 {
-  "name": "wedding-repo",
-  "version": "0.0.1",
-  "dependencies": {
-    "body-parser": "1.18.0",
-    "express": "4.14.1",
-    "mysql": "2.14.1",
-    "request": "^2.86.0",
-    "serve-favicon": "2.4.1",
-    "twilio": "^3.17.0"
+  "name": "wedding",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wedding invitation approval",
+  "workspaces": [
+    "app",
+    "api",
+    "packages/*"
+  ],
+  "scripts": {
+    "db:schema-sync": "yarn --cwd ./packages/altdb schema-sync",
+    "clean": "rm -rf **/node_modules",
+    "eslint": "eslint .",
+    "reinstall": "yarn clean; yarn"
   },
-  "main": "server.js",
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orierel/wedding.git"
+  },
+  "author": "Ori Erel",
   "license": "ISC",
-  "description": ""
+  "bugs": {
+    "url": "https://github.com/orierel/wedding/issues"
+  },
+  "homepage": "https://orierel.com",
+  "devDependencies": {
+    "babel-eslint": "10.0.1",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "4.2.0",
+    "eslint-import-resolver-alias": "1.1.2",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.12.4",
+    "prettier": "1.17.1"
+  }
 }

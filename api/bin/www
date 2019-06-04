@@ -1,0 +1,30 @@
+#! node
+
+let api;
+let logger;
+
+if (process.env.NODE_ENV === 'production') {
+  api = require('../dist/api').init;
+  logger = require('../dist/shims/logger.shim').logger;
+} else {
+  const path = require('path');
+
+  require('@babel/register')({
+    extends: path.resolve(__dirname, '..', '.babelrc'),
+    ignore: [/node_modules/],
+  });
+  api = require('../src/api').init;
+  logger = require('../src/shims/logger.shim').logger;
+}
+
+api()
+  .then(app => {
+    const listener = app.listen(process.env.PORT || 3500, () =>
+      logger.info(`API is up! listening on port ${listener.address().port}`),
+    );
+  })
+  .catch(err => {
+    logger.error('Error starting API!');
+    logger.error(err.stack);
+    process.exit(1);
+  });
