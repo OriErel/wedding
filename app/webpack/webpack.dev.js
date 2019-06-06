@@ -12,7 +12,7 @@ module.exports = merge(common, {
     hot: true,
     historyApiFallback: true,
     proxy: {
-      '/api': 'http://127.0.0.1:9999',
+      '/api': 'http://127.0.0.1:3500',
     },
     headers: {
       'Access-Control-Allow-Origin': '*',
