@@ -6,7 +6,8 @@
   "workspaces": [
     "app",
     "api",
-    "packages/*"
+    "packages/*",
+    "tools/*"
   ],
   "scripts": {
     "db:schema-sync": "yarn --cwd ./packages/altdb schema-sync",
