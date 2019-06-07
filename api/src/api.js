@@ -26,7 +26,7 @@ export const init = async () => {
   api.use(asHealth`/health`);
   addHealthCheck('altdb', container.cradle.db.healthCheck);
 
-  api.use('/guest', container.cradle.GuestHandler);
+  api.use('/api/guest', container.cradle.GuestHandler);
 
   api.use(loggerMiddlewares.errorLogger);
   api.use(errorMiddlewares.errorHandler);
