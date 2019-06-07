@@ -3,6 +3,7 @@ import Sequelize from 'sequelize';
 
 import { extractFunction } from '../extensions/extract';
 import { defaultParameters } from '../extensions/default-parameters';
+import { indexes } from '../extensions/indexes';
 
 export const register = connection => {
   const GuestModel = connection.define(
@@ -36,7 +37,10 @@ export const register = connection => {
         type: Sequelize.STRING,
       },
     },
-    defaultParameters(),
+    compose(
+      defaultParameters,
+      indexes([{ fields: ['rsvp'] }]),
+    )(),
   );
 
   const Guest = compose(extractFunction)(GuestModel);
