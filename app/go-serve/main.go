@@ -11,11 +11,13 @@ import (
 	"fmt"
 	"log"
 	"bytes"
+	"strings"
 	cors "github.com/AdhityaRamadhanus/fasthttpcors"
 	"github.com/valyala/fasthttp"
 )
 
-var	FilesHandler = fasthttp.CompressHandler(fasthttp.FSHandler("/srv/http", 0))
+const serveFolder = "/srv/http"
+var FilesHandler = fasthttp.CompressHandler(fasthttp.FSHandler(serveFolder, 0))
 
 func HealthHandler(ctx *fasthttp.RequestCtx) {
 	fmt.Fprint(ctx, "Ok\n")
@@ -24,15 +26,29 @@ func HealthHandler(ctx *fasthttp.RequestCtx) {
 func RequestHandler(ctx *fasthttp.RequestCtx) {
 	path := ctx.Path()
 	log.Printf("%s %s (%s)", ctx.Method, path, ctx.Request.Header.UserAgent())
+
+    var sb strings.Builder
+    sb.WriteString(serveFolder)
+    sb.WriteString(string(path))
+    filePath := sb.String()
+
+    if _, err := os.Stat(filePath); os.IsNotExist(err) {
+        sb.Reset()
+        sb.WriteString(serveFolder)
+        sb.WriteString("/index.html")
+        fasthttp.ServeFile(ctx, sb.String())
+        return
+    }
+
 	switch {
-	case bytes.HasPrefix(path, []byte("/health")):
-		HealthHandler(ctx)
-	case bytes.Index(path, []byte("bootstrap.js")) != -1:
-		ctx.Response.Header.Set("cache-control", "no-cache, no-store, must-revalidate")
-		FilesHandler(ctx)
-	default:
-		ctx.Response.Header.Set("cache-control", "public, max-age=2592000")
-		FilesHandler(ctx)
+        case bytes.HasPrefix(path, []byte("/health")):
+            HealthHandler(ctx)
+        case bytes.Index(path, []byte("bootstrap.js")) != -1:
+            ctx.Response.Header.Set("cache-control", "no-cache, no-store, must-revalidate")
+            FilesHandler(ctx)
+        default:
+            ctx.Response.Header.Set("cache-control", "public, max-age=2592000")
+            FilesHandler(ctx)
 	}
 }
 
