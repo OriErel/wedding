@@ -117,9 +117,10 @@ const ChangeRSVP = styled.div`
 `;
 
 const ChangeRSVPButton = styled(Button)`
-  padding: 15px 25px !important
+  padding: 15px 25px !important;
   color: #1a60b4 !important;
   border: 1px solid #1a60b4 !important;
+  background: rgba(255, 255, 255, 0.4) !important;
 `;
 
 const GuestRSVPComponent = ({
@@ -170,16 +171,14 @@ const GuestRSVPComponent = ({
 
           {guest.rsvp === 'NOT ATTENDING' && (
             <RSVPMessage>
-              תודה על המענה, צר לנו שלא
-              {guest.gender === 'MALE' ? ' תגיע' : ' תגיעי'}
+              תודה על המענה, צר לנו שלא נתראה
               <FAIcon className="fa fa-frown-o" aria-hidden="true" />
             </RSVPMessage>
           )}
 
           <ChangeRSVP>
             <ChangeRSVPButton variant={'outlined'} onClick={() => rsvp(null)}>
-              {guest.gender === 'MALE' ? 'לחץ ' : 'לחצי '}
-              כאן על מנת לשנות בחירתך
+              לעדכונים ושינויים יש ללחוץ כאן
             </ChangeRSVPButton>
           </ChangeRSVP>
         </div>

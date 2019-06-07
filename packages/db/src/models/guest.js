@@ -23,11 +23,6 @@ export const register = connection => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      gender: {
-        type: Sequelize.ENUM,
-        values: Object.values(['MALE', 'FEMALE']),
-        allowNull: false,
-      },
       rsvp: {
         type: Sequelize.ENUM,
         values: Object.values(['ATTENDING', 'NOT ATTENDING']),
