@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SMS Sender" type="NodeJSConfigurationType" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/tools/sms-sender">
+    <method v="2" />
+  </configuration>
+</component>
