@@ -37,6 +37,7 @@ WORKDIR /application/api
 
 COPY --from=builder /application/api/dist /application/api/dist
 COPY --from=builder /application/packages /application/packages
+COPY --from=builder /application/.env /application/.env
 COPY --from=builder /application/package.json /application/package.json
 
 COPY api/package.json ./package.json
