@@ -23,13 +23,10 @@ func HealthHandler(ctx *fasthttp.RequestCtx) {
 	fmt.Fprint(ctx, "Ok\n")
 }
 
-func RequestHandler(ctx *fasthttp.RequestCtx) {
-	path := ctx.Path()
-	log.Printf("%s %s (%s)", ctx.Method, path, ctx.Request.Header.UserAgent())
-
+func FileHandler(ctx *fasthttp.RequestCtx) {
     var sb strings.Builder
     sb.WriteString(serveFolder)
-    sb.WriteString(string(path))
+    sb.WriteString(string(ctx.Path()))
     filePath := sb.String()
 
     if _, err := os.Stat(filePath); os.IsNotExist(err) {
@@ -40,15 +37,22 @@ func RequestHandler(ctx *fasthttp.RequestCtx) {
         return
     }
 
+    FilesHandler(ctx)
+}
+
+func RequestHandler(ctx *fasthttp.RequestCtx) {
+	path := ctx.Path()
+	log.Printf("%s %s (%s)", ctx.Method, path, ctx.Request.Header.UserAgent())
+
 	switch {
         case bytes.HasPrefix(path, []byte("/health")):
             HealthHandler(ctx)
         case bytes.Index(path, []byte("bootstrap.js")) != -1:
             ctx.Response.Header.Set("cache-control", "no-cache, no-store, must-revalidate")
-            FilesHandler(ctx)
+            FileHandler(ctx)
         default:
             ctx.Response.Header.Set("cache-control", "public, max-age=2592000")
-            FilesHandler(ctx)
+            FileHandler(ctx)
 	}
 }
 
