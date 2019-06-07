@@ -19,8 +19,9 @@ const Container = styled.div`
 `;
 
 const TopImg = styled.img`
+  object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 200px;
   border-bottom: 1px solid #cdcdcd;
 
   @media (min-width: 480px) {
@@ -35,13 +36,12 @@ const TopImg = styled.img`
 `;
 
 const Title = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   font-size: 40px;
 `;
 
 const Body = styled.div`
   font-size: 18px;
-  margin-bottom: 20px;
   opacity: ${({ transparent }) => (transparent ? 0 : 1)};
   transition: opacity 0.3s;
 `;
@@ -51,46 +51,55 @@ const AmountOfGuests = styled.div`
 `;
 
 const NumericButton = styled(Button)`
+  padding: 5px 20px !important;
   background: #0008ff26 !important;
   min-width: 0 !important;
-  padding: 0 9px !important;
   border: 1px solid #212121 !important;
+  font-size: 24px !important;
 `;
 
 const NumericSpan = styled.span`
-  font-size: 14px;
-  margin: 0 15px;
+  font-size: 24px;
+  margin: 0 25px;
 `;
 
 const CommentContainer = styled.div`
-  margin-top: 30px;
+  margin-top: 40px;
 `;
 
 const CommentInput = styled.input`
   display: block;
   margin: 0 auto;
   border: 1px solid rgb(82, 82, 82);
-  height: 18px;
-  width: 60%;
+  width: calc(60% - 18px);
+  padding: 1px 10px;
   color: #212121;
   border-radius: 2px;
+  height: 36px;
 `;
 
 const RSVPContainer = styled.div`
-  margin-top: 30px;
+  margin-top: 50px;
+`;
+
+const FlexGrow = styled.div`
+  flex: 1;
 `;
 
 const RSVPButtons = styled.div`
-  margin-top: 5px;
+  margin: 5px auto 0 auto;
+  width: calc(60% + 4px);
+  display: flex;
 `;
 
 const RSVPGoingButton = styled(Button)`
+  padding: 15px 35px !important
   background-color: #4aa14a !important;
   color: white !important;
-  margin-left: 30px !important;
 `;
 
 const RSVPNotGoingButton = styled(Button)`
+  padding: 15px 25px !important
   background-color: #ce3837 !important;
   color: white !important;
 `;
@@ -108,6 +117,7 @@ const ChangeRSVP = styled.div`
 `;
 
 const ChangeRSVPButton = styled(Button)`
+  padding: 15px 25px !important
   color: #1a60b4 !important;
   border: 1px solid #1a60b4 !important;
 `;
@@ -130,9 +140,7 @@ const GuestRSVPComponent = ({
     <Body transparent={transparentBody}>
       {guest.rsvp == null && (
         <div>
-          אנא
-          {guest.gender === 'MALE' ? ' סמן ' : ' סמני '}
-          מספר אנשים
+          כמה תהיו?
           <AmountOfGuests>
             <NumericButton onClick={() => increaseAmountOfPeople()}>+</NumericButton>
             <NumericSpan>{guest.amountOfPeople}</NumericSpan>
@@ -143,11 +151,9 @@ const GuestRSVPComponent = ({
             <CommentInput type={'text'} value={guest.comment || ''} onChange={commentChange} />
           </CommentContainer>
           <RSVPContainer>
-            אנא
-            {guest.gender === 'MALE' ? ' אשר ' : ' אשרי '}
-            הגעתך לחתונתנו
             <RSVPButtons>
               <RSVPGoingButton onClick={() => rsvp('ATTENDING')}>מגיע</RSVPGoingButton>
+              <FlexGrow />
               <RSVPNotGoingButton onClick={() => rsvp('NOT ATTENDING')}>לא מגיע</RSVPNotGoingButton>
             </RSVPButtons>
           </RSVPContainer>
