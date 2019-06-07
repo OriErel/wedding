@@ -27,7 +27,7 @@ const sendSms = guest =>
       .create({
         to: guest.cellphone,
         from: 'HilaAndRan',
-        body: `היי ${name},\n\nאנא אשר הגעתך לחתונה של היל ורן ביום שישי ה-5 ליולי ב-"גרייס", ראשון לציון\n\n${url}`,
+        body: `היי ${name},\n\nאנא אשרו הגעתכם לחתונה של היל ורן ביום שישי ה-5 ליולי ב-"גרייס", ראשון לציון\n\n${url}`,
       })
       .then(() => {
         console.log(`Successfully sent SMS to ${guest.cellphone} - ${name}`);
