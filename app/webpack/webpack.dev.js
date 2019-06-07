@@ -11,6 +11,9 @@ module.exports = merge(common, {
     contentBase: './dist',
     hot: true,
     historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:3500',
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
     },

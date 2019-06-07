@@ -210,7 +210,7 @@ const withGuestRSVP = compose(
       if (rsvp !== null) {
         const { comment, amountOfPeople } = guest;
 
-        axios.post(`${window.location.protocol}//${window.location.hostname}:3500/guest/${guest.id}`, {
+        axios.post(`/api/guest/${guest.id}`, {
           rsvp,
           comment,
           amountOfPeople,
@@ -224,7 +224,7 @@ const withGuestRSVP = compose(
 
       const guestId = match.params.guestId;
 
-      const { data } = await axios.get(`${window.location.protocol}//${window.location.hostname}:3500/guest/${guestId}`);
+      const { data } = await axios.get(`/api/guest/${guestId}`);
       setGuest(data);
     },
   }),
