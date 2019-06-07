@@ -21,4 +21,4 @@ webApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   });
 });
 
-// TODO remove csv2db, nginx, sms-sender, webapp
+// TODO remove csv2db, nginx, sms-sender, webapp, ss

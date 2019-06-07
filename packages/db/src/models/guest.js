@@ -9,6 +9,37 @@ export const register = connection => {
     'guest',
     {
       id: { type: Sequelize.STRING, primaryKey: true },
+      firstName: {
+        field: 'first_name',
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        field: 'last_name',
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cellphone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      gender: {
+        type: Sequelize.ENUM,
+        values: Object.values(['MALE', 'FEMALE']),
+        allowNull: false,
+      },
+      rsvp: {
+        type: Sequelize.ENUM,
+        values: Object.values(['ATTENDING', 'NOT ATTENDING']),
+      },
+      amountOfPeople: {
+        field: 'amount_of_people',
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      comment: {
+        type: Sequelize.STRING,
+      },
     },
     defaultParameters(),
   );

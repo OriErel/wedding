@@ -1,6 +1,7 @@
 import * as awilix from 'awilix';
 import { connect } from 'db';
 
+import { create as createGuestHandler } from './api/guest';
 import { logger } from './shims/logger.shim';
 
 export const create = async () => {
@@ -23,6 +24,7 @@ export const create = async () => {
 
   container.register({
     db: awilix.asValue(db),
+    GuestHandler: awilix.asFunction(createGuestHandler),
   });
 
   return [container];

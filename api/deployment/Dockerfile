@@ -9,6 +9,7 @@ WORKDIR /application/api
 RUN mkdir -p /application/packages
 COPY packages/db /application/packages/db
 
+COPY .env /application/.env
 COPY package.json /application/package.json
 COPY yarn.lock /application/yarn.lock
 
