@@ -193,7 +193,7 @@ const withGuestRSVP = compose(
   withState('transparentBody', 'setTransparentBody'), // For CSS transitions
   withHandlers({
     increaseAmountOfPeople: ({ guest, setGuest }) => () => {
-      guest.amountOfPeople = guest.amountOfPeople >= 9 ? 9 : guest.amountOfPeople + 1;
+      guest.amountOfPeople = guest.amountOfPeople >= 10 ? 10 : guest.amountOfPeople + 1;
       setGuest(guest);
     },
     decreaseAmountOfPeople: ({ guest, setGuest }) => () => {
