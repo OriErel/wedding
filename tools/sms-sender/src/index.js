@@ -1,10 +1,12 @@
-import program from 'commander';
-import axios from 'axios';
+import path from 'path';
 import twilio from 'twilio';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: path.join(__dirname, '..', '..', '..', '.env') });
 
 import { connect } from 'db';
 
-const twilioClient = new twilio(process.env.TWILIO_KEY_1, process.env.TWILIO_KEY_2);
+const twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const db = connect({
   host: process.env.DB_HOST,
@@ -14,101 +16,34 @@ const db = connect({
   password: process.env.DB_PASSWORD,
 });
 
-const { Sequelize, Guest } = db;
+const { Guest } = db;
 
-program.command('some-name').action(async () => {
-  const result = await preCommit();
+const sendSms = guest =>
+  new Promise(resolve => {
+    const url = `https://hilaran.orierel.com/${guest.id}`;
 
-  if (!result.success) {
-    result.errors.forEach(error => console.error(error));
-    process.exit(1);
-  }
-});
+    const name = `${guest.firstName} ${guest.lastName}`.trim();
+    return twilioClient.messages
+      .create({
+        to: guest.cellphone,
+        from: 'HilaAndRan',
+        body: `היי ${name},\n\nאנא אשר הגעתך לחתונה של היל ורן ביום שישי ה-5 ליולי ב-"גרייס", ראשון לציון\n\n${url}`,
+      })
+      .then(() => {
+        console.log(`Successfully sent SMS to ${guest.cellphone} - ${name}`);
+      })
+      .catch(error => {
+        console.error(`Error sending SMS to ${guest.cellphone} - ${name}`, error);
+      })
+      .finally(() => resolve());
+  });
 
-program.parse(process.argv);
-
-// TODO test query
-const guestsPendingApproval = await Guest.findAll({
+Guest.findAll({
   where: {
-    arriving: null, // TODO index
-    cellphone: {
-      [Sequelize.Op.ne]: [null, ''], // TODO index
-    },
+    rsvp: null,
   },
-});
-
-if (!guestsPendingApproval.length) return;
-
-// ::TODO before changes::
-
-con.connect(err => {
-  if (err) throw err;
-
-  con.query(
-    'select * from guests where arriving is null and cellphone is not null and cellphone <> ""',
-    (err, results) => {
-      if (err) throw err;
-
-      if (!results.length) return;
-
-      smsCounter = results.length;
-      sendSms(results, 0);
-    },
-  );
-});
-
-let smsCounter = 0;
-const sendSms = (results, index) => {
-  const dbResult = results[index];
-  const token = encrypt(dbResult.cellphone);
-  let url = `https://neta.orierel.com/#/${token}`;
-
-  const name = `${dbResult.first_name} ${dbResult.last_name}`.trim();
-
-  request.post(
-    {
-      url: 'https://www.googleapis.com/urlshortener/v1/url?key=',
-      json: { longUrl: url },
-    },
-    (err, res, body) => {
-      if (err) {
-        console.log(`Couldn\'t shorten URL for ${name} ${dbResult.cellphone}`);
-      } else {
-        url = body.id;
-      }
-
-      smsCounter--;
-      return twilioClient.messages
-        .create({
-          to: dbResult.cellphone,
-          from: 'Neta Ori',
-          body: `שלום ${name},\n\nאנא אשר${
-            dbResult.isMale ? '' : 'י'
-          } הגעתך לחתונה של נטע ואורי ביום שישי ה-20 לאוקטובר ב-"קיו", קיבוץ גליל ים:\n\n${url}`,
-        })
-        .then(() => {
-          console.log(`Sent SMS to index ${index} - ${dbResult.cellphone}`);
-        })
-        .catch(error => {
-          console.log(`Error sending SMS to ${dbResult.cellphone} ${error}`);
-        })
-        .finally(() => postSmsHandle(results, index));
-    },
-  );
-};
-
-const encrypt = text => {
-  let cipher = crypto.createCipher(algorithm, encryptPass);
-  let crypted = cipher.update(text, 'utf8', 'hex');
-  crypted += cipher.final('hex');
-  return crypted;
-};
-
-const postSmsHandle = (results, index) => {
-  if (smsCounter === 0) {
-    console.log(`Done sending SMS!`);
-    return;
+}).then(async guestsToMessage => {
+  for (const guest of guestsToMessage) {
+    await sendSms(guest);
   }
-
-  return sendSms(results, ++index);
-};
+});

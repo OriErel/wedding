@@ -8,8 +8,9 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "7.4.0",
-    "@babel/register": "7.4.0",
     "@babel/preset-env": "7.4.2",
-    "commander": "2.19.0"
+    "@babel/register": "7.4.0",
+    "dotenv": "8.0.0",
+    "twilio": "3.31.1"
   }
 }
