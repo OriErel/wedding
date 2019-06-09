@@ -27,7 +27,8 @@ const sendSms = guest =>
       .create({
         to: guest.cellphone,
         from: 'HilaAndRan',
-        body: `היי ${name},\n\nאנא אשרו הגעתכם לחתונה של היל ורן ביום שישי ה-5 ליולי ב-"גרייס", ראשון לציון\n\n${url}`,
+        // body: `היי ${name},\n\nאנא אשרו הגעתכם לחתונה של הילה ורן ביום שישי ה-5 ליולי ב-"גרייס", ראשון לציון\n\n${url}`,
+        body: `היי ${name},\n\nאנא אשרו הגעתכם לחינה של הילה ורן ביום שבת ה-29 ביוני, קאנטרי גלי הדר - ראשון לציון\n\n${url}`,
       })
       .then(() => {
         console.log(`Successfully sent SMS to ${guest.cellphone} - ${name}`);
@@ -41,9 +42,13 @@ const sendSms = guest =>
 Guest.findAll({
   where: {
     rsvp: null,
+    // rsvp: 'ATTENDING',
+    // cellphone: '+972586456456',
+    // id: 'GKDKAO22rDSCV2',
   },
 }).then(async guestsToMessage => {
   for (const guest of guestsToMessage) {
+    // console.log(`${guest.firstName} ${guest.lastName}`);
     await sendSms(guest);
   }
 });

@@ -153,9 +153,9 @@ const GuestRSVPComponent = ({
           </CommentContainer>
           <RSVPContainer>
             <RSVPButtons>
-              <RSVPGoingButton onClick={() => rsvp('ATTENDING')}>מגיע</RSVPGoingButton>
+              <RSVPGoingButton onClick={() => rsvp(true)}>מגיע</RSVPGoingButton>
               <FlexGrow />
-              <RSVPNotGoingButton onClick={() => rsvp('NOT ATTENDING')}>לא מגיע</RSVPNotGoingButton>
+              <RSVPNotGoingButton onClick={() => rsvp(false)}>לא מגיע</RSVPNotGoingButton>
             </RSVPButtons>
           </RSVPContainer>
         </div>
@@ -178,7 +178,7 @@ const GuestRSVPComponent = ({
 
           <ChangeRSVP>
             <ChangeRSVPButton variant={'outlined'} onClick={() => rsvp(null)}>
-              לעדכונים ושינויים יש ללחוץ כאן
+              לעדכון ושינויים
             </ChangeRSVPButton>
           </ChangeRSVP>
         </div>
@@ -197,7 +197,7 @@ const withGuestRSVP = compose(
       setGuest(guest);
     },
     decreaseAmountOfPeople: ({ guest, setGuest }) => () => {
-      guest.amountOfPeople = guest.amountOfPeople <= 1 ? 1 : guest.amountOfPeople - 1;
+      guest.amountOfPeople = guest.amountOfPeople <= 0 ? 0 : guest.amountOfPeople - 1;
       setGuest(guest);
     },
     commentChange: ({ guest, setGuest }) => e => {

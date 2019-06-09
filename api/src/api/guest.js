@@ -38,7 +38,7 @@ export const create = ({ db }) => {
 
     await guest.update({
       rsvp: rsvp ? 'ATTENDING' : 'NOT ATTENDING',
-      amountOfPeople,
+      amountOfPeople: rsvp && amountOfPeople === 0 ? 1 : amountOfPeople,
       comment: typeof comment === 'string' ? comment : guest.comment,
     });
 
