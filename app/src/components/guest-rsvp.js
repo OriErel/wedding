@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import axios from 'axios';
 
-import CoupleImage from '../../public/couple.jpg';
+import CoupleImage from '../../public/couple.jpeg';
 
 const Container = styled.div`
   text-align: center;
