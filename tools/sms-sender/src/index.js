@@ -48,6 +48,10 @@ Guest.findAll({
   },
 }).then(async guestsToMessage => {
   for (const guest of guestsToMessage) {
+    if (!guest.cellphone) {
+      continue;
+    }
+
     // console.log(`${guest.firstName} ${guest.lastName}`);
     await sendSms(guest);
   }

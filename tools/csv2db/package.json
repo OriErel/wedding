@@ -1,5 +1,5 @@
 {
-  "name": "csv2db",
+  "name": "sms-sender",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -11,6 +11,6 @@
     "@babel/preset-env": "7.4.2",
     "@babel/register": "7.4.0",
     "dotenv": "8.0.0",
-    "randomstring": "1.1.5"
+    "twilio": "3.31.1"
   }
 }
