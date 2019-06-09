@@ -42,8 +42,10 @@ const importCsv = async (file, data) => {
     const firstName = nameSplitted[0];
     let lastName = '';
     for (let j = 1; j < nameSplitted.length; j++) {
-      lastName += nameSplitted[j];
+      lastName += ` ${nameSplitted[j]}`;
     }
+    lastName = lastName.trim();
+
     const cellphone = getCellphoneFromField(fields[1]);
 
     const guest = await Guest.findOne({
