@@ -16,6 +16,7 @@ export const create = ({ db }) => {
       return res.sendStatus(404);
     }
 
+    guest.rsvp = guest.rsvp === null ? null : guest.rsvp === 'ATTENDING';
     return res.send(guest);
   });
 
@@ -32,7 +33,7 @@ export const create = ({ db }) => {
 
     const { rsvp, comment, amountOfPeople } = req.body;
 
-    if (typeof rsvp !== 'string' || typeof amountOfPeople !== 'number') {
+    if (typeof rsvp !== 'boolean' || typeof amountOfPeople !== 'number') {
       return res.sendStatus(500);
     }
 

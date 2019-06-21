@@ -162,14 +162,14 @@ const GuestRSVPComponent = ({
       )}
       {guest.rsvp !== null && (
         <div>
-          {guest.rsvp === 'ATTENDING' && (
+          {guest.rsvp === true && (
             <RSVPMessage>
               תודה על המענה, נתראה בקרוב
               <FAIcon className="fa fa-smile-o" aria-hidden="true" />
             </RSVPMessage>
           )}
 
-          {guest.rsvp === 'NOT ATTENDING' && (
+          {guest.rsvp === false && (
             <RSVPMessage>
               תודה על המענה, צר לנו שלא נתראה
               <FAIcon className="fa fa-frown-o" aria-hidden="true" />
